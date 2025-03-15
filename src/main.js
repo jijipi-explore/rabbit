@@ -9,11 +9,14 @@ import '@/styles/common.scss'
 
 // 引用懒加载插件，并且注册
 import { lasyPlugin } from '@/directives/index'
+// 引入全局组件插件
+import { componentPlugin } from '@/components/index'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(lasyPlugin)
+app.use(componentPlugin)
 app.mount('#app')
 
