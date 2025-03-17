@@ -14,4 +14,6 @@ export const useUserStore = defineStore('user', () => {
   }
   // 3.返回state和actions
   return { userInfo, getUserinfo }
+}, {
+  persist: true
 })
