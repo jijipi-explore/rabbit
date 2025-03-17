@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useUserStore } from '@/stores/user'
+import router from '@/router'
 
 // 创建axios实例
 const httpInstance = axios.create({
@@ -31,6 +32,7 @@ httpInstance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response;
 }, function (error) {
+  const userStore = useUserStore()
   // 超出 2xx 范围的状态码都会触发该函数。
   // 对响应错误做点什么
   // 统一错误提示
@@ -38,6 +40,13 @@ httpInstance.interceptors.response.use(function (response) {
     message: error.response.data.message,
     type: 'warning',
   })
+  // 401token失效处理
+  if(error.response.status === 401){
+    // 清除本地用户数据
+    userStore.clearUserInfo()
+    // 跳转到登录页面
+    router.push('/login')
+  }
   return Promise.reject(error);
 });
 
