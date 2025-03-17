@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
-
+import { useUserStore } from '@/stores/user'
 
 // 创建axios实例
 const httpInstance = axios.create({
@@ -12,6 +12,13 @@ const httpInstance = axios.create({
 // 添加请求拦截器
 httpInstance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  // 1.从pinia获取token数据
+  const userStore = useUserStore()
+  // 2.按照后端要求拼接数据
+  const token = userStore.userInfo.token
+  if(token){
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -26,7 +33,6 @@ httpInstance.interceptors.response.use(function (response) {
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
   // 对响应错误做点什么
-
   // 统一错误提示
   ElMessage({
     message: error.response.data.message,
