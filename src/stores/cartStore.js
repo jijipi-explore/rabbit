@@ -46,6 +46,12 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  // 清除购物车
+  const clearCart = async () => {
+    cartList.value = []
+  }
+
+
   // 单选功能
   const singleCheck = (skuId, selected) => {
     const item = cartList.value.find((item) => skuId === item.skuId)
@@ -71,7 +77,10 @@ export const useCartStore = defineStore('cart', () => {
   // 是否全选
   const isCheckAll = computed(() => cartList.value.every((item) => item.selected))
 
-  return { cartList, allCount, allPrice, isCheckAll, selectedCount, selectedPrice, addCart, delCart, singleCheck, checkAll }
+  return { cartList, allCount, allPrice, 
+    isCheckAll, selectedCount, selectedPrice, 
+    addCart, delCart, singleCheck,
+    checkAll, clearCart }
 }, {
   persist: true
 })
