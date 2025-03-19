@@ -1,35 +1,20 @@
-# rabbit
+## 黑马小兔鲜前端项目-vue3框架
 
-This template should help get you started developing with Vue 3 in Vite.
+## 1、使用vue脚手架初始化项目工程
+1. 项目目录
 
-## Recommended IDE Setup
+## 2、组合式API
+1. ref
+2. computed
+3. watch
+4. 生命周期函数
+5. 父子通信 defineProps/defineEmits
+6. vue router
+7. api
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 3、pinia
 
-## Customize configuration
+## 4、element-plus
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 5、sku
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
