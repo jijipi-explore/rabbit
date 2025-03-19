@@ -12,6 +12,13 @@ export const useCartStore = defineStore('cart', () => {
 
   // 1. 定义state - 购物车数组
   const cartList = ref([])
+
+  // 获取最新的购物车列表action
+  const updateNewList = async () => {
+    const res = await findNewCartListAPI()
+    cartList.value = res.data.result
+  }
+
   // 2. 定义actions - 加入购物车
   const addCart = async (goods) => {
     const {skuId, count} = goods
@@ -22,8 +29,7 @@ export const useCartStore = defineStore('cart', () => {
     if(isLogin.value) {
       // 登录之后的加入购物车逻辑
       await insertCartAPI({skuId, count})
-      const res = await findNewCartListAPI()
-      cartList.value = res.data.result
+      updateNewList()
     } else {
       const item = cartList.value.find((item) => goods.skuId === item.skuId)
       if(item){
@@ -38,8 +44,7 @@ export const useCartStore = defineStore('cart', () => {
   const delCart = async (skuId) => {
     if(isLogin.value){
       await delCartAPI([skuId])
-      const res = await findNewCartListAPI()
-      cartList.value = res.data.result
+      updateNewList()
     } else {
       const index = cartList.value.findIndex((item) => skuId === item.skuId)
       cartList.value.splice(index, 1)
@@ -80,7 +85,7 @@ export const useCartStore = defineStore('cart', () => {
   return { cartList, allCount, allPrice, 
     isCheckAll, selectedCount, selectedPrice, 
     addCart, delCart, singleCheck,
-    checkAll, clearCart }
+    checkAll, clearCart, updateNewList }
 }, {
   persist: true
 })
